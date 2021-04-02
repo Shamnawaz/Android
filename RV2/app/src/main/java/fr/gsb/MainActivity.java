@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             unVisiteur.setMatricule(response.getString("matricule" ) );
                             unVisiteur.setMdp(response.getString("mdp"));
                             Log.i(TAG, String.valueOf(unVisiteur));
-                            Session.getSession().ouvrir(unVisiteur);
+                            Session.ouvrir(unVisiteur);
 
                         } catch (JSONException e) {
                             Log.e(TAG, "Erreur JSON : "+e.getMessage());

@@ -4,7 +4,7 @@ import fr.gsb.entites.Visiteur;
 public class Session {
 
     private static Session session = null;
-    private static Visiteur leVisiteur;
+    private Visiteur leVisiteur;
 
 
     private Session(Visiteur unVisiteur){
@@ -27,7 +27,7 @@ public class Session {
         session = null;
     }
 
-    public static Visiteur getVisiteur(){
+    public Visiteur getVisiteur(){
 
         return leVisiteur;
     }
