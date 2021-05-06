@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbarSize="15dp"
     tools:context=".ListeRvActivity">
 
     <LinearLayout
@@ -15,12 +16,13 @@
             android:id="@+id/tvTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Liste des Rapports de visites"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <ListView
             android:id="@+id/lvRapport"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbarSize="15sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

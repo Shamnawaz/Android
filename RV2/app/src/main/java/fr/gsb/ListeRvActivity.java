@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,7 +38,7 @@ public class ListeRvActivity extends AppCompatActivity {
     ListView lvRapport;
 
     List<String[]> rapports = new ArrayList<>();
-    List<String> lrap = new ArrayList<String>();
+    List<String> lrap = new ArrayList<>();
 
 
     @Override
@@ -46,12 +47,14 @@ public class ListeRvActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liste_rv);
 
         tvTest = (TextView) findViewById(R.id.tvTest);
-        lvRapport = (ListView) findViewById(R.id.lvRapport);
 
 
         Bundle paquet = this.getIntent().getExtras();
         String mois = paquet.getString("mois");
         String annee = paquet.getString("Annee");
+
+
+
 
 
 
@@ -72,21 +75,27 @@ public class ListeRvActivity extends AppCompatActivity {
 
                         for(int i = 0; i < lRapports.length(); i++) {
                             JSONObject objet = lRapports.getJSONObject(i);
-                            String[] unRapport = new String[]{
-                                    objet.getJSONObject("rap_num").toString(),
-                                    objet.getJSONObject("rap_date_visite").toString(),
-                                    objet.getJSONObject("rap_bilan").toString(),
-                                    objet.getJSONObject("pra_nom").toString(),
-                                    objet.getJSONObject("pra_prenom").toString(),
-                                    objet.getJSONObject("pra_cp").toString(),
-                                    objet.getJSONObject("pra_ville").toString()
-                            };
+                            System.out.println(objet.get("rap_num").toString());
+                            String[] unRapport = new String[]{objet.get("rap_bilan").toString(),
+                                    objet.get("pra_cp").toString(),
+                                    objet.get("rap_num").toString(),
+                                    objet.get("pra_nom").toString(),
+                                    objet.get("rap_date_visite").toString(),
+                                    objet.get("pra_prenom").toString(),
+                                    objet.get("pra_ville").toString()};
+                            rapports.add(unRapport);
 
                             rapports.add(unRapport);
-                            lrap.add("Rapport "+objet.getJSONObject("rap_num"));
+                            lrap.add("Rapport "+objet.get("rap_num").toString());
+
 
 
                         }
+                        lvRapport = (ListView) findViewById(R.id.lvRapport);
+                        ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1 , lrap);
+
+                        lvRapport.setAdapter(adaptateur);
+
 
 
                     }
@@ -96,28 +105,21 @@ public class ListeRvActivity extends AppCompatActivity {
                         Log.e(TAG, "Erreur JSON : "+e.getMessage());
                     }
 
+                    System.out.println(response);
+
+
+
+                }
+
+                else{
+
+                    Toast.makeText(getApplicationContext(), "Prénom : null"+" || Nom :null", Toast.LENGTH_LONG).show();
+
                 }
 
                 Log.d(TAG, "Connexion Ok : "+response);
             }
         };
-
-        ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lrap);
-
-        lvRapport.setAdapter(adaptateur);
-
-        lvRapport.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                lrap.get(position);
-                System.out.println("Rapport "+lrap);
-
-
-
-           }
-        });
 
 
 
